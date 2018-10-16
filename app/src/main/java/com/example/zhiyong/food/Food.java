@@ -9,7 +9,7 @@ public class Food {
     private int price;
     private int pic;
 
-    public Food(String name, boolean spicy, boolean seafood, boolean sour, int price, int pic) {
+    public Food(String name, int price, int pic, boolean spicy, boolean seafood, boolean sour) {
         this.name = name;
         this.spicy = spicy;
         this.seafood = seafood;
