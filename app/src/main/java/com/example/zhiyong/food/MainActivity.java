@@ -20,7 +20,6 @@ import java.util.List;
 1. 初始化控件
 2. 初始化数据
 3. 为控件添加监听器
-
  */
 public class MainActivity extends AppCompatActivity {
     private EditText name;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private SeekBarListener seekBarListener;
     private ButtonListener buttonListener;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
 //        为控件添加监听器
         setListener();
     }
-
-    private void setListener(){
-
+    private void setListener() {
         radioGroupListener = new RadioGroupListener();
 //        这个sex, 是 --> private RadioGroup sex;
         sex.setOnCheckedChangeListener(radioGroupListener);
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         find.setOnClickListener(buttonListener);
         toggleButton.setOnClickListener(buttonListener);
     }
-
     private void initView() {
         name = findViewById(R.id.edittext);
         sex = findViewById(R.id.rg_sex);
@@ -81,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         toggleButton = findViewById(R.id.togglebutton);
 
     }
-
     private void initDate() {
         person = new Person();
         lists_food = new ArrayList<>();
@@ -110,13 +104,12 @@ public class MainActivity extends AppCompatActivity {
                 false, true));
 
     }
-
-    class RadioGroupListener implements RadioGroup.OnCheckedChangeListener{
+    class RadioGroupListener implements RadioGroup.OnCheckedChangeListener {
 
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
 //            当用户选择当前radio group的button时触发
-            switch (checkedId){
+            switch (checkedId) {
 
                 case R.id.rb_man:
                     person.setSex("男");
@@ -128,45 +121,43 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    class CheckBoxListener implements android.widget.CompoundButton.OnCheckedChangeListener{
+    class CheckBoxListener implements android.widget.CompoundButton.OnCheckedChangeListener {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 //            当控件状态改变时触发
             CheckBox cbb = (CheckBox) buttonView;
-            switch (cbb.getId()){
+            switch (cbb.getId()) {
 
                 case R.id.spicy:
-                    if (isChecked){
+                    if (isChecked) {
                         isSpicy = true;
-                    }else {
+                    } else {
                         isSpicy = false;
                     }
                     break;
 
                 case R.id.seafood:
-                    if (isChecked){
+                    if (isChecked) {
                         isSeafood = true;
-                    }else {
+                    } else {
                         isSeafood = false;
                     }
                     break;
 
                 case R.id.sour:
-                    if (isChecked){
+                    if (isChecked) {
                         isSour = true;
-                    }else {
+                    } else {
                         isSour = false;
                     }
                     break;
-
             }
+            System.out.println("当前喜好: " + "辣" + isSpicy + "海鲜" + isSeafood + "酸" + isSour);
 
         }
     }
-
-    class SeekBarListener implements SeekBar.OnSeekBarChangeListener{
+    class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -185,19 +176,16 @@ public class MainActivity extends AppCompatActivity {
 //            当用户停止拖拽的时候触发
             price = seekBar.getProgress();
             Toast.makeText(MainActivity.this, "价格" + price, Toast.LENGTH_SHORT).show();
-
-
         }
     }
-
-    class ButtonListener implements View.OnClickListener{
+    class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
 
                 case R.id.btn_01:
 //                    当用户点击寻找时, 需要筛查信息
-//                    并把结果显示在imageView上
+//                    并把结果显示在imageView上π
                     checkDate();
                     break;
 
@@ -207,24 +195,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
     private void checkDate() {
 
 //        找出菜品
 //        通过循环遍历, 当前所有原始数据, 找出数据中符合用户选择条件的内容
-        for (int i = 0;i<lists_food.size(); i++){
+        for (int i = 0; i < lists_food.size(); i++) {
             Food food = lists_food.get(i);
 //            菜品价格, 小于等于预算
-            if ((food.getPrice()<=price)&&(food.isSeafood()==isSeafood)&&(food.isSour()==
-                    isSour) && (food.isSpicy() == isSpicy)){
+            if ((food.getPrice() <= price) && (food.isSeafood() == isSeafood) && (food.isSour() ==
+                    isSour) && (food.isSpicy() == isSpicy)) {
                 lists_found.add(food);
-
             }
         }
         System.out.println("**************" + lists_found.size());
-
-
     }
-
-
 }
